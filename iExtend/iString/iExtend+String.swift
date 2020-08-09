@@ -10,13 +10,16 @@ import Foundation
 import CommonCrypto
 
 public extension String {
-    func open() {
+    func openAsURL() {
         guard let url = URL(string: self) else { return }
         url.open()
     }
     func toURL() -> URL? {
         guard let url = URL(string: self), url.status() else { return nil }
         return url
+    }
+    func isURL() -> Bool {
+        return toURL() != nil
     }
     func MD5() -> String? {
         let length: Int = Int(CC_MD5_DIGEST_LENGTH)

@@ -16,8 +16,7 @@ public extension URL {
     }
     func open() {
         guard self.status() else { return }
-        Thread.onMainThread { [weak self] in
-            guard let self = self else { return }
+        Thread.onMainThread {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(self)
             } else {
