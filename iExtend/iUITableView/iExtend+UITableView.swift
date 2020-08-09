@@ -22,9 +22,16 @@ public extension UITableView {
         }
     }
     func getIndex(fromSender sender: UIButton) -> IndexPath? {
-        let table: UITableView = self
-        let position: CGPoint = sender.convert(CGPoint.zero, to: table)
-        guard let index = table.indexPathForRow(at: position) else { return nil }
+        guard let index = self.indexPathForRow(at: sender.convert(CGPoint.zero, to: self)) else { return nil }
         return index
+    }
+    func isLastCell(forIndexPath index: IndexPath) -> Bool {
+        guard let isLastCellIndex = self.indexPathsForVisibleRows?.last else { return false }
+        return isLastCellIndex == index
+    }
+    func scrollToLastCell(animated: Bool = true) {
+        let lastSectionIndex = self.numberOfSections - 1 // last section
+        let lastRowIndex = self.numberOfRows(inSection: lastSectionIndex) - 1 // last row
+        self.scrollToRow(at: IndexPath(row: lastRowIndex, section: lastSectionIndex), at: .bottom, animated: animated)
     }
 }

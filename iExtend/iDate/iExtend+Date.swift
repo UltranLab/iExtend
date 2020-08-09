@@ -61,6 +61,9 @@ public extension Date {
         let dateDayInt = self.getDayInt()
         return "\(dateYearString)\(seperatorStyle)\(dateMonthInt)\(seperatorStyle)\(dateDayInt)"
     }
+    func inMilliSeconds() -> Int64 {
+        return Int64(self.timeIntervalSince1970 * 1000)
+    }
     func getDayInt() -> Int {
         return Calendar.current.component(.day, from: self)
     }

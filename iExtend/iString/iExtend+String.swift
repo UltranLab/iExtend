@@ -10,38 +10,38 @@ import Foundation
 import CommonCrypto
 
 public extension String {
-//    func MD5() -> String?{
-//        let length: Int = Int(CC_MD5_DIGEST_LENGTH)
-//        var digest: [UInt8] = [UInt8](repeating: 0, count: length)
-//
-//        if let d = self.data(using: String.Encoding.utf8) {
-//            _ = d.withUnsafeBytes { (body: UnsafePointer<UInt8>) in
-//                CC_MD5(body, CC_LONG(d.count), &digest)
-//            }
-//        }
-//
-//        return (0..<length).reduce(""){
-//            $0 + String(format: "%02x", digest[$1])
-//        }
-//    }
-        func MD5() -> String? {
-            let length: Int = Int(CC_MD5_DIGEST_LENGTH)
-            var digest: [UInt8] = [UInt8](repeating: 0, count: length)
-            if let data = self.data(using: String.Encoding.utf8) {
-                data.withUnsafeBytes( { (buffer: UnsafeRawBufferPointer) in
-                    guard let baseAddress = buffer.baseAddress else { return }
-                    CC_MD5(baseAddress, CC_LONG(buffer.count), &digest)
-                })
-            }
-            return (0..<length).reduce("") {
-                $0 + String(format: "%02x", digest[$1])
-            }
+    func open() {
+        guard let url = URL(string: self) else { return }
+        openWith(url: url)
+    }
+    func MD5() -> String? {
+        let length: Int = Int(CC_MD5_DIGEST_LENGTH)
+        var digest: [UInt8] = [UInt8](repeating: 0, count: length)
+        if let data = self.data(using: String.Encoding.utf8) {
+            data.withUnsafeBytes( { (buffer: UnsafeRawBufferPointer) in
+                guard let baseAddress = buffer.baseAddress else { return }
+                CC_MD5(baseAddress, CC_LONG(buffer.count), &digest)
+            })
         }
+        return (0..<length).reduce("") {
+            $0 + String(format: "%02x", digest[$1])
+        }
+    }
     func firstCapital() -> String {
         return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
-    mutating func firstCap() {
-        self = self.firstCapital()
+    var isValidURL: Bool {
+        guard !self.isEmpty else { return false }
+        do {
+            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            guard let matchFrom = detector
+                .firstMatch(in: self, options: [],
+                            range: NSRange(location: 0,
+                                           length: self.utf16.count)) else { return false}
+            return matchFrom.range.length == self.utf16.count
+        } catch {
+            return false
+        }
     }
     func proceedIfContains(_ matchCharacters: String) -> Bool {
         let characterSet: CharacterSet = CharacterSet(charactersIn: matchCharacters)
@@ -121,5 +121,19 @@ public extension String {
     var iDevice: IDevice {
         guard let deviceResponse = IDevice(rawValue: self) else { return .undefined }
         return deviceResponse
+    }
+    var boolValue: Bool {
+        return NSString(string: self.lowercased()).boolValue
+    }
+    func toBase64() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+    func toInt() -> Int? {
+        guard let returnResponse = Int(self) else { return nil }
+        return returnResponse
+    }
+    func toDouble() -> Double? {
+        guard let returnResponse = Double(self) else { return nil }
+        return returnResponse
     }
 }

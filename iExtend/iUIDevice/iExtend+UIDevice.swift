@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIDevice {
-    var iDevice: IUIDevice {
+    var rawDevice: String {
         var systemInformation = utsname()
         uname(&systemInformation)
         let systemMirror = Mirror(reflecting: systemInformation.machine)
@@ -17,10 +17,18 @@ public extension UIDevice {
             guard let valueToCheck = elementToCheck.value as? Int8, valueToCheck != 0 else { return identifierValue }
             return identifierValue + String(UnicodeScalar(UInt8(valueToCheck)))
         }
-        return identifier.iUIDevice
+        return identifier
+    }
+    var iDevice: IDevice {
+        let rawDeviceID: String = rawDevice
+        return rawDeviceID.internalDevice.iDevice
+    }
+    var iDeviceWithRaw: (IDevice, String) {
+        let rawDeviceID: String = rawDevice
+        return (rawDeviceID.internalDevice.iDevice, rawDeviceID)
     }
 }
-public enum IUIDevice: String {
+public enum InternalDeviceMapper: String {
     case iPod51 = "iPod5,1"
     case iPod71 = "iPod7,1"
     case iPod91 = "iPod9,1"
@@ -117,66 +125,66 @@ public enum IUIDevice: String {
     case appleTV62 = "AppleTV6,2"
     case audioAccessory11 = "AudioAccessory1,1"
     case i386, x86_64, undefined
-    var pretty: String {
+    var iDevice: IDevice {
         switch self {
-        case .iPod51:                                   return "iPod touch (5th generation)"
-        case .iPod71:                                   return "iPod touch (6th generation)"
-        case .iPod91:                                   return "iPod touch (7th generation)"
-        case .iPhone31, .iPhone32, .iPhone33:           return "iPhone 4"
-        case .iPhone41:                                 return "iPhone 4s"
-        case .iPhone51, .iPhone52:                      return "iPhone 5"
-        case .iPhone53, .iPhone54:                      return "iPhone 5c"
-        case .iPhone61, .iPhone62:                      return "iPhone 5s"
-        case .iPhone72:                                 return "iPhone 6"
-        case .iPhone71:                                 return "iPhone 6 Plus"
-        case .iPhone81:                                 return "iPhone 6s"
-        case .iPhone82:                                 return "iPhone 6s Plus"
-        case .iPhone84:                                 return "iPhone SE"
-        case .iPhone91, .iPhone93:                      return "iPhone 7"
-        case .iPhone92, .iPhone94:                      return "iPhone 7 Plus"
-        case .iPhone101, .iPhone104:                    return "iPhone 8"
-        case .iPhone102, .iPhone105:                    return "iPhone 8 Plus"
-        case .iPhone103, .iPhone106:                    return "iPhone X"
-        case .iPhone112:                                return "iPhone XS"
-        case .iPhone114, .iPhone116:                    return "iPhone XS Max"
-        case .iPhone118:                                return "iPhone XR"
-        case .iPhone121:                                return "iPhone 11"
-        case .iPhone123:                                return "iPhone 11 Pro"
-        case .iPhone125:                                return "iPhone 11 Pro Max"
-        case .iPhone128:                                return "iPhone SE (2nd generation)"
-        case .iPad21, .iPad22, .iPad23, .iPad24:        return "iPad 2"
-        case .iPad31, .iPad32, .iPad33:                 return "iPad (3rd generation)"
-        case .iPad34, .iPad35, .iPad36:                 return "iPad (4th generation)"
-        case .iPad611, .iPad612:                        return "iPad (5th generation)"
-        case .iPad75, .iPad76:                          return "iPad (6th generation)"
-        case .iPad711, .iPad712:                        return "iPad (7th generation)"
-        case .iPad41, .iPad42, .iPad43:                 return "iPad Air"
-        case .iPad53, .iPad54:                          return "iPad Air 2"
-        case .iPad114, .iPad115:                        return "iPad Air (3rd generation)"
-        case .iPad25, .iPad26, .iPad27:                 return "iPad mini"
-        case .iPad44, .iPad45, .iPad46:                 return "iPad mini 2"
-        case .iPad47, .iPad48, .iPad49:                 return "iPad mini 3"
-        case .iPad51, .iPad52:                          return "iPad mini 4"
-        case .iPad111, .iPad112:                        return "iPad mini (5th generation)"
-        case .iPad63, .iPad64:                          return "iPad Pro (9.7-inch)"
-        case .iPad73, .iPad74:                          return "iPad Pro (10.5-inch)"
-        case .iPad81, .iPad82, .iPad83, .iPad84:        return "iPad Pro (11-inch) (1st generation)"
-        case .iPad89, .iPad810:                         return "iPad Pro (11-inch) (2nd generation)"
-        case .iPad67, .iPad68:                          return "iPad Pro (12.9-inch) (1st generation)"
-        case .iPad71, .iPad72:                          return "iPad Pro (12.9-inch) (2nd generation)"
-        case .iPad85, .iPad86, .iPad87, .iPad88:        return "iPad Pro (12.9-inch) (3rd generation)"
-        case .iPad811, .iPad812:                        return "iPad Pro (12.9-inch) (4th generation)"
-        case .appleTV53:                                return "Apple TV"
-        case .appleTV62:                                return "Apple TV 4K"
-        case .audioAccessory11:                         return "HomePod"
-        case .i386, .x86_64:                            return "Simulator " + (ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] ?? "iOS").iUIDevice.pretty
-        default:                                        return "undefined"
+        case .iPod51:                                   return .iPodTouch5thGen
+        case .iPod71:                                   return .iPodTouch6thGen
+        case .iPod91:                                   return .iPodTouch7thGen
+        case .iPhone31, .iPhone32, .iPhone33:           return .iPhone4
+        case .iPhone41:                                 return .iPhone4s
+        case .iPhone51, .iPhone52:                      return .iPhone5
+        case .iPhone53, .iPhone54:                      return .iPhone5c
+        case .iPhone61, .iPhone62:                      return .iPhone5s
+        case .iPhone72:                                 return .iPhone6
+        case .iPhone71:                                 return .iPhone6Plus
+        case .iPhone81:                                 return .iPhone6s
+        case .iPhone82:                                 return .iPhone6sPlus
+        case .iPhone84:                                 return .iPhoneSE
+        case .iPhone91, .iPhone93:                      return .iPhone7
+        case .iPhone92, .iPhone94:                      return .iPhone7Plus
+        case .iPhone101, .iPhone104:                    return .iPhone8
+        case .iPhone102, .iPhone105:                    return .iPhone8Plus
+        case .iPhone103, .iPhone106:                    return .iPhoneX
+        case .iPhone112:                                return .iPhoneXS
+        case .iPhone114, .iPhone116:                    return .iPhoneXSMax
+        case .iPhone118:                                return .iPhoneXR
+        case .iPhone121:                                return .iPhone11
+        case .iPhone123:                                return .iPhone11Pro
+        case .iPhone125:                                return .iPhone11ProMax
+        case .iPhone128:                                return .iPhoneSE2
+        case .iPad21, .iPad22, .iPad23, .iPad24:        return .iPad2
+        case .iPad31, .iPad32, .iPad33:                 return .iPad3rdGen
+        case .iPad34, .iPad35, .iPad36:                 return .iPad4thGen
+        case .iPad611, .iPad612:                        return .iPad5thGen
+        case .iPad75, .iPad76:                          return .iPad6thGen
+        case .iPad711, .iPad712:                        return .iPad7thGen
+        case .iPad41, .iPad42, .iPad43:                 return .iPadAir
+        case .iPad53, .iPad54:                          return .iPadAir2
+        case .iPad114, .iPad115:                        return .iPadAir3rdGen
+        case .iPad25, .iPad26, .iPad27:                 return .iPadMini
+        case .iPad44, .iPad45, .iPad46:                 return .iPadMini2
+        case .iPad47, .iPad48, .iPad49:                 return .iPadMini3
+        case .iPad51, .iPad52:                          return .iPadMini4
+        case .iPad111, .iPad112:                        return .iPadMini5thGen
+        case .iPad63, .iPad64:                          return .iPadPro97Inch
+        case .iPad73, .iPad74:                          return .iPadPro105Inch
+        case .iPad81, .iPad82, .iPad83, .iPad84:        return .iPadPro11Inch1stGen
+        case .iPad89, .iPad810:                         return .iPadPro11Inch2ndGen
+        case .iPad67, .iPad68:                          return .iPadPro129Inch1stGen
+        case .iPad71, .iPad72:                          return .iPadPro129Inch2ndGen
+        case .iPad85, .iPad86, .iPad87, .iPad88:        return .iPadPro129Inch3rdGen
+        case .iPad811, .iPad812:                        return .iPadPro129Inch4thGen
+        case .appleTV53:                                return .appleTV
+        case .appleTV62:                                return .appleTV4K
+        case .audioAccessory11:                         return .homePod
+        case .i386, .x86_64:                            return .simulator
+        default:                                        return .undefined
         }
     }
 }
-internal extension String {
-    var iUIDevice: IUIDevice {
-        guard let deviceResponse = IUIDevice(rawValue: self) else { return .undefined }
+private extension String {
+    var internalDevice: InternalDeviceMapper {
+        guard let deviceResponse = InternalDeviceMapper(rawValue: self) else { return .undefined }
         return deviceResponse
     }
 }

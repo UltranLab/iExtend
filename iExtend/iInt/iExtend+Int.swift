@@ -8,13 +8,25 @@
 
 import Foundation
 
-public extension Int{
+public extension Int {
     var boolValue: Bool { return self != 0 }
     var SmoothApiStatus: SmoothApiStatusCodes {
         guard let apiErrorCheck = SmoothApiStatusCodes(rawValue: self) else { return .unauthorized }
         return apiErrorCheck
     }
-    var addOrdinalValue: String {
+    func format(withSeparator seperator: String = ",") -> String {
+        let response = String(self)
+        guard !seperator.isEmpty else { return response }
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = seperator
+        guard let respns = formatter.string(from: NSNumber(value: self)) else { return response }
+        return respns
+    }
+    func formatWithLeading() -> String {
+        return (self >= 0) ? ((self < 10) ? "0\(self)" : "\(self)") : "00"
+    }
+    var uxFriendly: String {
         get {
             var suffix = "th"
             switch self % 10 {

@@ -38,6 +38,9 @@
 		5964E98A24DEF02C0067F356 /* iExtend+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964E96E24DEF02C0067F356 /* iExtend+UITextField.swift */; };
 		5964E98B24DEF02C0067F356 /* iExtend+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964E97024DEF02C0067F356 /* iExtend+UIView.swift */; };
 		5964E98E24DEF0550067F356 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5964E98D24DEF0550067F356 /* CoreLocation.framework */; };
+		5964E99124DFDDB20067F356 /* iExtend+WKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964E99024DFDDB20067F356 /* iExtend+WKWebView.swift */; };
+		5964E99324DFDDD30067F356 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5964E99224DFDDD30067F356 /* WebKit.framework */; };
+		5964E99624DFDED10067F356 /* iExtend+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964E99524DFDED10067F356 /* iExtend+URL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		5964E96E24DEF02C0067F356 /* iExtend+UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iExtend+UITextField.swift"; sourceTree = "<group>"; };
 		5964E97024DEF02C0067F356 /* iExtend+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iExtend+UIView.swift"; sourceTree = "<group>"; };
 		5964E98D24DEF0550067F356 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		5964E99024DFDDB20067F356 /* iExtend+WKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iExtend+WKWebView.swift"; sourceTree = "<group>"; };
+		5964E99224DFDDD30067F356 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		5964E99524DFDED10067F356 /* iExtend+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iExtend+URL.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5964E99324DFDDD30067F356 /* WebKit.framework in Frameworks */,
 				5964E98E24DEF0550067F356 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +136,8 @@
 		5964E92624DEEEDA0067F356 /* iExtend */ = {
 			isa = PBXGroup;
 			children = (
+				5964E99424DFDEC00067F356 /* iURL */,
+				5964E98F24DFDD950067F356 /* iWKWebView */,
 				5964E95D24DEF02B0067F356 /* iBundle */,
 				5964E94024DEF02B0067F356 /* iCLLocation */,
 				5964E95724DEF02B0067F356 /* iDate */,
@@ -366,9 +375,26 @@
 		5964E98C24DEF0550067F356 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5964E99224DFDDD30067F356 /* WebKit.framework */,
 				5964E98D24DEF0550067F356 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5964E98F24DFDD950067F356 /* iWKWebView */ = {
+			isa = PBXGroup;
+			children = (
+				5964E99024DFDDB20067F356 /* iExtend+WKWebView.swift */,
+			);
+			path = iWKWebView;
+			sourceTree = "<group>";
+		};
+		5964E99424DFDEC00067F356 /* iURL */ = {
+			isa = PBXGroup;
+			children = (
+				5964E99524DFDED10067F356 /* iExtend+URL.swift */,
+			);
+			path = iURL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -499,8 +525,10 @@
 				5964E97624DEF02C0067F356 /* iExtend+UIViewController.swift in Sources */,
 				5964E97D24DEF02C0067F356 /* iExtend+UIButton.swift in Sources */,
 				5964E98224DEF02C0067F356 /* iExtend+Double.swift in Sources */,
+				5964E99624DFDED10067F356 /* iExtend+URL.swift in Sources */,
 				5964E97E24DEF02C0067F356 /* iExtend+Date.swift in Sources */,
 				5964E97324DEF02C0067F356 /* iExtend+Enum.swift in Sources */,
+				5964E99124DFDDB20067F356 /* iExtend+WKWebView.swift in Sources */,
 				5964E97524DEF02C0067F356 /* iExtend+Dictionary.swift in Sources */,
 				5964E98924DEF02C0067F356 /* iExtend+UILabel.swift in Sources */,
 				5964E98424DEF02C0067F356 /* iExtend+UIScrollView.swift in Sources */,

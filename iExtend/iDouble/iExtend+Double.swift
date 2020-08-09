@@ -18,4 +18,16 @@ public extension Double {
         }
         return String(format: "%.0f", locale: Locale.current,self)
     }
+    func format(withSeparator seperator: String = ",") -> String {
+        let response = String(self)
+        guard !seperator.isEmpty else { return response }
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = seperator
+        guard let respns = formatter.string(from: NSNumber(value: self)) else { return response }
+        return respns
+    }
+    func toInt() -> Int {
+        return (self >= Double(Int.min) && self < Double(Int.max)) ? Int(self) : 0
+    }
 }

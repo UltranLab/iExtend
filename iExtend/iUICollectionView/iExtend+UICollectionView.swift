@@ -25,4 +25,8 @@ public extension UICollectionView {
         insets.right = padding
         return insets
     }
+    func getIndex(fromSender sender: UIButton) -> IndexPath? {
+        guard let index = self.indexPathForItem(at: sender.convert(CGPoint.zero, to: self)) else { return nil }
+        return index
+    }
 }
