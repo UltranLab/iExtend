@@ -28,7 +28,7 @@ public extension UIDevice {
         return (rawDeviceID.internalDevice.iDevice, rawDeviceID)
     }
 }
-public enum InternalDeviceMapper: String {
+private enum InternalDeviceMapper: String {
     case iPod51 = "iPod5,1"
     case iPod71 = "iPod7,1"
     case iPod91 = "iPod9,1"
