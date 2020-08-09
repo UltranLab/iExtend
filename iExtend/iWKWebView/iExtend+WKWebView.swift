@@ -9,7 +9,7 @@
 import Foundation
 import WebKit
 
-extension WKWebView {
+public extension WKWebView {
     class func clearCache() {
         guard #available(iOS 9.0, *) else { return }
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
