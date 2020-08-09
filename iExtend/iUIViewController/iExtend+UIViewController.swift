@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 public extension UIViewController {
     func setStatusBar(withColor color: UIColor = .white) {
@@ -46,11 +47,7 @@ public extension UIViewController {
         presentBasicSafariView(for: finalUrl)
     }
     func presentBasicSafariView(for url: URL) {
-        guard SPFunctions.status(of: url) else { return }
-        guard (self.presentedViewController == nil) else {
-            SPLogEngine.debugLog(for: "Failed to load SafariView for url - \(url.absoluteString) as some other goddamn SafariView is already present on the screen!")
-            return
-        }
+        guard url.status(), (self.presentedViewController == nil) else { return }
         let safariView: SFSafariViewController = SFSafariViewController(url: url)
         Thread.onMainThread { [weak self] in
             guard let self = self else { return }

@@ -9,6 +9,17 @@
 import UIKit
 
 public extension UITextField {
+    func setText(withNewText newText: String, shouldPreserveCursor preservingCursor: Bool = true) {
+        if preservingCursor {
+            let cursorPosition = offset(from: beginningOfDocument, to: selectedTextRange!.start) + newText.count - (text?.count ?? 0)
+            text = newText
+            if let newPosition = self.position(from: beginningOfDocument, offset: cursorPosition) {
+                selectedTextRange = textRange(from: newPosition, to: newPosition)
+            }
+        } else {
+            text = newText
+        }
+    }
     var leftSpace: CGFloat {
         get {
             return self.leftView?.frame.size.width ?? 0

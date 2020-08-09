@@ -12,7 +12,11 @@ import CommonCrypto
 public extension String {
     func open() {
         guard let url = URL(string: self) else { return }
-        openWith(url: url)
+        url.open()
+    }
+    func toURL() -> URL? {
+        guard let url = URL(string: self), url.status() else { return nil }
+        return url
     }
     func MD5() -> String? {
         let length: Int = Int(CC_MD5_DIGEST_LENGTH)
