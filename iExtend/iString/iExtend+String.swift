@@ -21,6 +21,19 @@ public extension String {
     func isURL() -> Bool {
         return toURL() != nil
     }
+    var isValidURL: Bool {
+        guard !self.isEmpty else { return false }
+        do {
+            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            guard let matchFrom = detector
+                .firstMatch(in: self, options: [],
+                            range: NSRange(location: 0,
+                                           length: self.utf16.count)) else { return false}
+            return matchFrom.range.length == self.utf16.count
+        } catch {
+            return false
+        }
+    }
     func MD5() -> String? {
         let length: Int = Int(CC_MD5_DIGEST_LENGTH)
         var digest: [UInt8] = [UInt8](repeating: 0, count: length)
@@ -36,19 +49,6 @@ public extension String {
     }
     func firstCapital() -> String {
         return prefix(1).uppercased() + self.lowercased().dropFirst()
-    }
-    var isValidURL: Bool {
-        guard !self.isEmpty else { return false }
-        do {
-            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-            guard let matchFrom = detector
-                .firstMatch(in: self, options: [],
-                            range: NSRange(location: 0,
-                                           length: self.utf16.count)) else { return false}
-            return matchFrom.range.length == self.utf16.count
-        } catch {
-            return false
-        }
     }
     func proceedIfContains(_ matchCharacters: String) -> Bool {
         let characterSet: CharacterSet = CharacterSet(charactersIn: matchCharacters)
