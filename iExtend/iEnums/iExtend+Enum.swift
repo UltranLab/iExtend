@@ -108,8 +108,13 @@ public enum SmoothApiStatusCodes: Int {
     case notExtended = 510
     case networkAuthenticationRequired = 511
     case webServerReturnedAnUnknownError = 520
-    
+    case webServerIsDown = 521
+    case connectionTimeOut = 522
+    case originIsUnreachable = 523
+    case aTimeoutOccured = 524
+    case sslHandshakeFailed = 525
     case invalidSSLCertificate = 526
+    case railgunError = 527
     case siteIsFrozen = 529
     case networkReadTimeout = 598
     case networkConnectTimeoutError = 599
