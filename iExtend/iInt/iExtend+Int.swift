@@ -10,8 +10,8 @@ import Foundation
 
 public extension Int {
     var boolValue: Bool { return self != 0 }
-    var SmoothApiStatus: SmoothApiStatusCodes {
-        guard let apiErrorCheck = SmoothApiStatusCodes(rawValue: self) else { return .unauthorized }
+    var iStatusCode: IStatusCode {
+        guard let apiErrorCheck = IStatusCode(rawValue: self) else { return .unauthorized }
         return apiErrorCheck
     }
     func format(withSeparator seperator: String = ",") -> String {

@@ -41,6 +41,7 @@
 		5964E99124DFDDB20067F356 /* iExtend+WKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964E99024DFDDB20067F356 /* iExtend+WKWebView.swift */; };
 		5964E99324DFDDD30067F356 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5964E99224DFDDD30067F356 /* WebKit.framework */; };
 		5964E99624DFDED10067F356 /* iExtend+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964E99524DFDED10067F356 /* iExtend+URL.swift */; };
+		5984982624EE295F007E863E /* iExtend+StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5984982524EE295F007E863E /* iExtend+StatusCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		5964E99024DFDDB20067F356 /* iExtend+WKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iExtend+WKWebView.swift"; sourceTree = "<group>"; };
 		5964E99224DFDDD30067F356 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		5964E99524DFDED10067F356 /* iExtend+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iExtend+URL.swift"; sourceTree = "<group>"; };
+		5984982524EE295F007E863E /* iExtend+StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "iExtend+StatusCode.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 		5964E92624DEEEDA0067F356 /* iExtend */ = {
 			isa = PBXGroup;
 			children = (
+				5984982424EE28A6007E863E /* iStatusCode */,
 				5964E99424DFDEC00067F356 /* iURL */,
 				5964E98F24DFDD950067F356 /* iWKWebView */,
 				5964E95D24DEF02B0067F356 /* iBundle */,
@@ -397,6 +400,14 @@
 			path = iURL;
 			sourceTree = "<group>";
 		};
+		5984982424EE28A6007E863E /* iStatusCode */ = {
+			isa = PBXGroup;
+			children = (
+				5984982524EE295F007E863E /* iExtend+StatusCode.swift */,
+			);
+			path = iStatusCode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -524,6 +535,7 @@
 				5964E98324DEF02C0067F356 /* iExtend+Generics.swift in Sources */,
 				5964E97624DEF02C0067F356 /* iExtend+UIViewController.swift in Sources */,
 				5964E97D24DEF02C0067F356 /* iExtend+UIButton.swift in Sources */,
+				5984982624EE295F007E863E /* iExtend+StatusCode.swift in Sources */,
 				5964E98224DEF02C0067F356 /* iExtend+Double.swift in Sources */,
 				5964E99624DFDED10067F356 /* iExtend+URL.swift in Sources */,
 				5964E97E24DEF02C0067F356 /* iExtend+Date.swift in Sources */,

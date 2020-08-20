@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable public extension UIView{
+@IBDesignable public extension UIView {
     func removeAnimation(forKey key: String = "") {
         if !key.isEmpty {
             self.layer.removeAnimation(forKey: key)
@@ -127,7 +127,7 @@ import UIKit
             self.layer.borderColor = color.cgColor
         }
     }
-    func changeHalfCorner(side whichSide: HalfCornerSide,
+    func changeHalfCorner(side whichSide: IUICornerDirection,
                           addBorder border: Bool = false,
                           borderColor color: UIColor = .clear,
                           width borderWidth: CGFloat = 1) {
@@ -174,5 +174,44 @@ import UIKit
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+    func singleSideRoundCorner(on side: IUICornerDirection = .bottom, cornerRadius radius: CGFloat = 20.0, andColor color: UIColor = .white) {
+        if #available(iOS 11.0, *) {
+            self.clipsToBounds = true
+            self.layer.cornerRadius = radius
+            switch side {
+            case .top:
+                self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+            case .bottom:
+                self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+            case .left:
+                self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+            case .right:
+                self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+            case .all:
+                self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            case .undefined: break
+            }
+        } else {
+            let halfSideLayer: CAShapeLayer = CAShapeLayer()
+            halfSideLayer.bounds = self.frame
+            halfSideLayer.position = self.center
+            let size: CGSize = CGSize(width: radius, height: radius)
+            switch side {
+            case .top:
+                halfSideLayer.path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: size).cgPath
+            case .bottom:
+                halfSideLayer.path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: size).cgPath
+            case .left:
+                halfSideLayer.path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: size).cgPath
+            case .right:
+                halfSideLayer.path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.topRight, .bottomRight], cornerRadii: size).cgPath
+            case .all:
+                halfSideLayer.path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.topLeft, .topRight, .bottomLeft, .bottomRight], cornerRadii: size).cgPath
+            case .undefined: break
+            }
+            self.layer.mask = halfSideLayer
+        }
+        self.layer.backgroundColor = color.cgColor
     }
 }
