@@ -71,9 +71,12 @@ public extension String {
         return self.rangeOfCharacter(from: disallowedCharacterSet) == nil
     }
     func isNumeric() -> Bool {
+        var status: Bool = false
         let scanner: Scanner = Scanner(string: self)
         scanner.locale = Locale.current
-        return scanner.scanDecimal(nil) && scanner.isAtEnd
+        guard scanner.scanDecimal() != nil else { return status }
+        status = true && scanner.isAtEnd
+        return status
     }
     func getDate(dateFormatter dateFormat: String) -> Date?{
         let dateFormatter: DateFormatter = DateFormatter()
@@ -142,5 +145,9 @@ public extension String {
     func toDouble() -> Double? {
         guard let returnResponse = Double(self) else { return nil }
         return returnResponse
+    }
+    func initCall() {
+        guard let phone = URL(string: "tel://\(self)") else { return }
+        phone.open()
     }
 }

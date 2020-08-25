@@ -11,12 +11,10 @@ import SafariServices
 
 public extension UIViewController {
     func setStatusBar(withColor color: UIColor = .white) {
-        var statusView: UIView!
+        var statusView: UIView?
         if #available(iOS 13.0, *) {
             if let statusFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame {
                 statusView = UIView(frame: statusFrame)
-            } else {
-                statusView = UIView(frame: UIApplication.shared.statusBarFrame)
             }
         } else {
             if let statusViewC = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView {
@@ -25,20 +23,21 @@ public extension UIViewController {
                 statusView = UIView(frame: UIApplication.shared.statusBarFrame)
             }
         }
-        statusView.backgroundColor = color
+        guard let status = statusView else { return }
+        status.backgroundColor = color
         Thread.onMainThread { [weak self] in
             guard let self = self else { return }
-            self.view.addSubview(statusView)
-            statusView.translatesAutoresizingMaskIntoConstraints = false
-            statusView.heightAnchor
-                .constraint(equalToConstant: statusView.frame.size.height).isActive = true
-            statusView.widthAnchor
+            self.view.addSubview(status)
+            status.translatesAutoresizingMaskIntoConstraints = false
+            status.heightAnchor
+                .constraint(equalToConstant: status.frame.size.height).isActive = true
+            status.widthAnchor
                 .constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
-            statusView.topAnchor
+            status.topAnchor
                 .constraint(equalTo: self.view.topAnchor).isActive = true
-            statusView.centerXAnchor
+            status.centerXAnchor
                 .constraint(equalTo: self.view.centerXAnchor).isActive = true
-            self.view.sendSubviewToBack(statusView)
+            self.view.sendSubviewToBack(status)
             self.view.layoutIfNeeded()
         }
     }
