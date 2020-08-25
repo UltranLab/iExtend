@@ -10,34 +10,38 @@ import UIKit
 import SafariServices
 
 public extension UIViewController {
-    func setStatusBar(withColor color: UIColor = .white) {
-        var statusView: UIView?
+    func statusBarFrame() -> CGRect? {
+        var response: CGRect?
         if #available(iOS 13.0, *) {
             if let statusFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame {
-                statusView = UIView(frame: statusFrame)
+                response = statusFrame
             }
         } else {
             if let statusViewC = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView {
-                statusView = statusViewC
+                response = statusViewC.frame
             } else {
-                statusView = UIView(frame: UIApplication.shared.statusBarFrame)
+                response = UIApplication.shared.statusBarFrame
             }
         }
-        guard let status = statusView else { return }
-        status.backgroundColor = color
+        return response
+    }
+    func setStatusBar(withColor color: UIColor = .white) {
+        guard let statusFrame = statusBarFrame() else { return }
+        let statusView: UIView = UIView(frame: statusFrame)
+        statusView.backgroundColor = color
         Thread.onMainThread { [weak self] in
             guard let self = self else { return }
-            self.view.addSubview(status)
-            status.translatesAutoresizingMaskIntoConstraints = false
-            status.heightAnchor
-                .constraint(equalToConstant: status.frame.size.height).isActive = true
-            status.widthAnchor
+            self.view.addSubview(statusView)
+            statusView.translatesAutoresizingMaskIntoConstraints = false
+            statusView.heightAnchor
+                .constraint(equalToConstant: statusView.frame.size.height).isActive = true
+            statusView.widthAnchor
                 .constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
-            status.topAnchor
+            statusView.topAnchor
                 .constraint(equalTo: self.view.topAnchor).isActive = true
-            status.centerXAnchor
+            statusView.centerXAnchor
                 .constraint(equalTo: self.view.centerXAnchor).isActive = true
-            self.view.sendSubviewToBack(status)
+            self.view.sendSubviewToBack(statusView)
             self.view.layoutIfNeeded()
         }
     }
