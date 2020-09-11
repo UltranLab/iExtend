@@ -71,14 +71,11 @@ public extension String {
         return self.rangeOfCharacter(from: disallowedCharacterSet) == nil
     }
     func isNumeric() -> Bool {
-        var status: Bool = false
-        let scanner: Scanner = Scanner(string: self)
-        scanner.locale = Locale.current
-        guard scanner.scanDecimal() != nil else { return status }
-        status = true && scanner.isAtEnd
-        return status
+        guard !self.isEmpty else { return false }
+        let numbers: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        return Set(self).isSubset(of: numbers)
     }
-    func getDate(dateFormatter dateFormat: String) -> Date?{
+    func getDate(dateFormatter dateFormat: String) -> Date? {
         let dateFormatter: DateFormatter = DateFormatter()
         dateFormatter.dateFormat = dateFormat
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -89,12 +86,9 @@ public extension String {
         guard !self.isEmpty else { return "" }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h:mm a"
-        if let givenDate = dateFormatter.date(from: self){
-            dateFormatter.dateFormat = "HH:mm"
-            return dateFormatter.string(from: givenDate)
-        } else {
-            return ""
-        }
+        guard let givenDate = dateFormatter.date(from: self) else { return "" }
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: givenDate)
     }
     func get12Hour() -> String {
         guard !self.isEmpty else { return "" }
