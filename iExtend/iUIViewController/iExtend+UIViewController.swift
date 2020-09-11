@@ -10,21 +10,24 @@ import UIKit
 import SafariServices
 
 public extension UIViewController {
-    func setStatusBar(withColor color: UIColor = .white) {
-        var statusView: UIView!
+    func statusBarFrame() -> CGRect? {
+        var response: CGRect?
         if #available(iOS 13.0, *) {
             if let statusFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame {
-                statusView = UIView(frame: statusFrame)
-            } else {
-                statusView = UIView(frame: UIApplication.shared.statusBarFrame)
+                response = statusFrame
             }
         } else {
             if let statusViewC = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView {
-                statusView = statusViewC
+                response = statusViewC.frame
             } else {
-                statusView = UIView(frame: UIApplication.shared.statusBarFrame)
+                response = UIApplication.shared.statusBarFrame
             }
         }
+        return response
+    }
+    func setStatusBar(withColor color: UIColor = .white) {
+        guard let statusFrame = statusBarFrame() else { return }
+        let statusView: UIView = UIView(frame: statusFrame)
         statusView.backgroundColor = color
         Thread.onMainThread { [weak self] in
             guard let self = self else { return }
