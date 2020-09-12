@@ -13,19 +13,20 @@ public extension UIViewController {
     func statusBarFrame() -> CGRect? {
         var response: CGRect?
         if #available(iOS 13.0, *) {
-            if let statusFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame {
-                response = statusFrame
-            }
+            let topWindow: UIWindow? = UIApplication.topWindow()
+            response = topWindow?.windowScene?.statusBarManager?.statusBarFrame
         } else {
-            if let statusViewC = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView {
-                response = statusViewC.frame
-            } else {
-                response = UIApplication.shared.statusBarFrame
-            }
+            response = UIApplication.shared.statusBarFrame
         }
         return response
     }
     func setStatusBar(withColor color: UIColor = .white) {
+        let statusBarTag: Int = -3239326219
+        if let statusBarView = self.view.viewWithTag(statusBarTag) {
+            self.view.bringSubviewToFront(statusBarView)
+            self.view.layoutIfNeeded()
+            return
+        }
         guard let statusFrame = statusBarFrame() else { return }
         let statusView: UIView = UIView(frame: statusFrame)
         statusView.backgroundColor = color
@@ -41,7 +42,7 @@ public extension UIViewController {
                 .constraint(equalTo: self.view.topAnchor).isActive = true
             statusView.centerXAnchor
                 .constraint(equalTo: self.view.centerXAnchor).isActive = true
-            self.view.sendSubviewToBack(statusView)
+            self.view.bringSubviewToFront(statusView)
             self.view.layoutIfNeeded()
         }
     }
