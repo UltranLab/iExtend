@@ -10,17 +10,21 @@ import UIKit
 
 public extension UIApplication {
     class func topViewController(isNavBarHidden hidden: Bool = true) -> UIViewController? {
+        guard let topWidndow = topWindow(),
+            var topViewController = topWidndow.rootViewController else { return nil }
+        while let currentView = topViewController.presentedViewController {
+            topViewController = currentView
+        }
+        topViewController.navigationController?.isNavigationBarHidden = hidden
+        return topViewController
+    }
+    class func topWindow() -> UIWindow? {
         var keyWindow: UIWindow?
         if #available(iOS 13.0, *) {
             keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
         } else {
             keyWindow = UIApplication.shared.keyWindow
         }
-        guard var topViewController = keyWindow?.rootViewController else { return nil }
-        while let currentView = topViewController.presentedViewController {
-            topViewController = currentView
-        }
-        topViewController.navigationController?.isNavigationBarHidden = hidden
-        return topViewController
+        return keyWindow
     }
 }
