@@ -21,7 +21,7 @@ public extension UIViewController {
         return response
     }
     func setStatusBar(withColor color: UIColor = .white) {
-        let statusBarTag: Int = -3239326219
+        let statusBarTag: Int = 323932
         if let statusBarView = self.view.viewWithTag(statusBarTag) {
             self.view.bringSubviewToFront(statusBarView)
             self.view.layoutIfNeeded()
