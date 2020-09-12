@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 #  summary should be tweet-length, and the description more in depth.
 #
     s.name         = "iExtend"
-    s.version      = "3.5"
+    s.version      = "3.6"
     s.summary      = "An iOS extension collection bundle to help devs."
 
 # This description is used to generate tags and improve search results.
