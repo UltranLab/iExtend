@@ -21,9 +21,9 @@ public extension UIApplication {
     class func topWindow() -> UIWindow? {
         var keyWindow: UIWindow?
         if #available(iOS 13.0, *) {
-            keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+            keyWindow = self.shared.windows.filter { $0.isKeyWindow }.first
         } else {
-            keyWindow = UIApplication.shared.keyWindow
+            keyWindow = self.shared.keyWindow
         }
         return keyWindow
     }
