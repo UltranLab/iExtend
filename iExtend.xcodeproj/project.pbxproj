@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59331E0C251903BC0075AB6D /* iWKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59331E0B251903BC0075AB6D /* iWKWebView.swift */; };
 		5964E92E24DEEEDA0067F356 /* iExtend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5964E92424DEEEDA0067F356 /* iExtend.framework */; };
 		5964E93324DEEEDA0067F356 /* iExtendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5964E93224DEEEDA0067F356 /* iExtendTests.swift */; };
 		5964E93524DEEEDA0067F356 /* iExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = 5964E92724DEEEDA0067F356 /* iExtend.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		59331E0B251903BC0075AB6D /* iWKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iWKWebView.swift; sourceTree = "<group>"; };
 		5964E92424DEEEDA0067F356 /* iExtend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iExtend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5964E92724DEEEDA0067F356 /* iExtend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iExtend.h; sourceTree = "<group>"; };
 		5964E92824DEEEDA0067F356 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				5964E99024DFDDB20067F356 /* iExtend+WKWebView.swift */,
+				59331E0B251903BC0075AB6D /* iWKWebView.swift */,
 			);
 			path = iWKWebView;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				5964E97424DEF02C0067F356 /* iExtend+UITableView.swift in Sources */,
 				5964E97724DEF02C0067F356 /* iExtend+IDevice.swift in Sources */,
 				5964E98824DEF02C0067F356 /* iExtend+UILabelProperties.swift in Sources */,
+				59331E0C251903BC0075AB6D /* iWKWebView.swift in Sources */,
 				5964E97824DEF02C0067F356 /* iExtend+UIDevice.swift in Sources */,
 				5964E98124DEF02C0067F356 /* iExtend+Bundle.swift in Sources */,
 				5964E97F24DEF02C0067F356 /* iExtend+UICollectionView.swift in Sources */,
