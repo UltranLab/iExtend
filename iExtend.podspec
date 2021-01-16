@@ -44,7 +44,7 @@ Pod::Spec.new do |s|
 #  profile URL.
 #
     s.author             = { "Tuhin S" => "icrunchcoder@gmail.com" }
-    s.social_media_url   = "http://twitter.com/TuhinS"
+    s.social_media_url   = "https://twitter.com/rippertms"
 
 # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 #
