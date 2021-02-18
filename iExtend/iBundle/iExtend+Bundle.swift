@@ -26,7 +26,10 @@ public extension Bundle {
     var releaseVersionPretty: String {
         return "v\(releaseVersion)"
     }
+    var buildVersionPretty: String {
+        return "b\(buildVersion)"
+    }
     var fullVersion: String {
-        return "\(releaseVersion)(\(buildVersion))"
+        return "\(releaseVersion)\\\(buildVersion)"
     }
 }

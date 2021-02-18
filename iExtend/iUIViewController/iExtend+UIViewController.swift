@@ -27,21 +27,23 @@ public extension UIViewController {
             self.view.layoutIfNeeded()
             return
         }
-        guard let statusFrame = statusBarFrame() else { return }
-        let statusView: UIView = UIView(frame: statusFrame)
+        var layoutMargin: UILayoutGuide = view.layoutMarginsGuide
+        if #available(iOS 11.0, *) {
+            layoutMargin = view.safeAreaLayoutGuide
+        }
+        let statusView: UIView = UIView(frame: .zero)
         statusView.backgroundColor = color
         Thread.onMainThread { [weak self] in
             guard let self = self else { return }
             self.view.addSubview(statusView)
             statusView.translatesAutoresizingMaskIntoConstraints = false
-            statusView.heightAnchor
-                .constraint(equalToConstant: statusView.frame.size.height).isActive = true
             statusView.widthAnchor
-                .constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+                .constraint(equalTo: self.view.widthAnchor).isActive = true
             statusView.topAnchor
                 .constraint(equalTo: self.view.topAnchor).isActive = true
             statusView.centerXAnchor
                 .constraint(equalTo: self.view.centerXAnchor).isActive = true
+            statusView.bottomAnchor.constraint(equalTo: layoutMargin.topAnchor).isActive = true
             self.view.bringSubviewToFront(statusView)
             self.view.layoutIfNeeded()
         }
