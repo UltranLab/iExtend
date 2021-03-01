@@ -67,7 +67,7 @@ public extension UIViewController {
         if let ok = okTitle, !ok.isEmpty {
             let okAction: UIAlertAction = UIAlertAction(title: ok, style: .default) { (action) in
                 Thread.onMainThread {
-                    onCompletion?(false)
+                    onCompletion?(true)
                     alertController.dismiss(animated: true)
                 }
             }
