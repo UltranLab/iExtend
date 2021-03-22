@@ -11,11 +11,13 @@ import CommonCrypto
 
 public extension String {
     func openAsURL() {
-        guard let url = URL(string: self) else { return }
+        guard let url = self.toURL() else { return }
         url.open()
     }
     func toURL() -> URL? {
-        guard let url = URL(string: self), url.status() else { return nil }
+        guard self.isValidURL,
+              let url = URL(string: self),
+              url.status() else { return nil }
         return url
     }
     func isURL() -> Bool {
