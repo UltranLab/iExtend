@@ -15,4 +15,8 @@ public extension UIScrollView {
     var verticalOffsetForBottom: CGFloat {
         return ((contentSize.height) + (contentInset.bottom - bounds.height))
     }
+    var scrollPercent: CGFloat {
+        let offset: CGPoint = self.contentOffset
+        return (offset.x / (self.contentSize.width - self.frame.width))
+    }
 }
